@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olympic Harriers — Johnsonville Running &amp; Walking Club</title>
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --black-soft: #1a1a1a;
+      --black-muted: #2a2a2a;
+      --red: #c8102e;
+      --red-dark: #9e0c24;
+      --red-light: #fce8ec;
+      --white: #ffffff;
+      --grey-100: #f5f5f5;
+      --grey-200: #e8e8e8;
+      --grey-400: #888;
+      --grey-600: #555;
+      --max-width: 1120px;
+      --radius: 8px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--black);
+      background: var(--grey-100);
+    }
+
+    a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--black);
+      color: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      min-height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .logo:hover {
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+
+    .logo-text strong {
+      display: block;
+      font-size: 1.125rem;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: 0.75rem;
+      color: var(--grey-400);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1.25rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-nav a {
+      color: var(--grey-200);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 0.35rem 0;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+    }
+
+    .main-nav a:hover {
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .main-nav a.active,
+    .main-nav a.nav-highlight {
+      color: var(--white);
+      border-bottom-color: var(--red);
+    }
+
+    .nav-highlight {
+      background: var(--red);
+      padding: 0.35rem 0.85rem !important;
+      border-radius: 4px;
+      border-bottom: none !important;
+    }
+
+    .nav-highlight:hover {
+      background: var(--red-dark);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--black) 0%, var(--black-soft) 60%, #2d0a10 100%);
+      color: var(--white);
+      padding: 3rem 1.25rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(200, 16, 46, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      line-height: 1.15;
+      margin: 0 0 1rem;
+      max-width: 18ch;
+    }
+
+    .hero-lead {
+      font-size: 1.125rem;
+      color: var(--grey-200);
+      max-width: 42rem;
+      margin: 0 0 1.75rem;
+    }
+
+    .hero-lead strong {
+      color: var(--white);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.35rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      border: 2px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .btn:hover {
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      border-color: var(--red);
+    }
+
+    .btn-primary:hover {
+      background: var(--red-dark);
+      border-color: var(--red-dark);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--white);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--grey-200);
+      font-size: 0.8125rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    /* ── Priority cards ── */
+    .priority-section {
+      max-width: var(--max-width);
+      margin: -2rem auto 0;
+      padding: 0 1.25rem 2.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .priority-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      border-top: 4px solid var(--grey-200);
+    }
+
+    .card-featured {
+      border-top-color: var(--red);
+    }
+
+    .card-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+    }
+
+    .card h2 {
+      font-size: 1.125rem;
+      margin: 0 0 0.75rem;
+      line-height: 1.3;
+    }
+
+    .card p {
+      margin: 0 0 0.75rem;
+      color: var(--grey-600);
+      font-size: 0.9375rem;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .next-run-date {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+
+    .next-run-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin: 1rem 0;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--grey-600);
+    }
+
+    .meta-icon {
+      flex-shrink: 0;
+      width: 1.25rem;
+      text-align: center;
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .price-tag {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .price-tag span {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--grey-600);
+    }
+
+    .card-note {
+      font-size: 0.8125rem;
+      color: var(--grey-400);
+      font-style: italic;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--grey-200);
+    }
+
+    .contact-names {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    /* ── Quick facts ── */
+    .facts-bar {
+      background: var(--black);
+      color: var(--white);
+      padding: 1.5rem 1.25rem;
+    }
+
+    .facts-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .fact-item strong {
+      display: block;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--red);
+      margin-bottom: 0.25rem;
+    }
+
+    .fact-item span {
+      font-size: 0.875rem;
+      color: var(--grey-200);
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem;
+    }
+
+    .section-heading {
+      font-size: 1.25rem;
+      margin: 0 0 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--red);
+      display: inline-block;
+    }
+
+    .faq-box {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.75rem;
+      border-left: 4px solid var(--red);
+    }
+
+    .faq-box h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.0625rem;
+    }
+
+    .faq-box p {
+      margin: 0 0 0.75rem;
+      color: var(--grey-600);
+    }
+
+    .faq-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── Member tables (existing content, deprioritised) ── */
+    .members-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.25rem 2.5rem;
+    }
+
+    .members-section .section-heading {
+      margin-bottom: 1.5rem;
+    }
+
+    .tables-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .table-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+    }
+
+    .table-card-header {
+      background: var(--black-muted);
+      color: var(--white);
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-card-header a {
+      color: var(--grey-200);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .table-card table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+
+    .table-card th,
+    .table-card td {
+      padding: 0.6rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    .table-card th {
+      color: var(--grey-400);
+      font-weight: 500;
+      width: 5.5rem;
+    }
+
+    .table-card tr:last-child td,
+    .table-card tr:last-child th {
+      border-bottom: none;
+    }
+
+    .table-card td a {
+      font-weight: 500;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--black);
+      color: var(--grey-400);
+      padding: 2rem 1.25rem;
+      font-size: 0.875rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .footer-inner h4 {
+      color: var(--white);
+      font-size: 0.875rem;
+      margin: 0 0 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-inner p {
+      margin: 0 0 0.5rem;
+    }
+
+    .footer-inner a {
+      color: var(--grey-200);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 1.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--black-muted);
+      text-align: center;
+      font-size: 0.8125rem;
+    }
+
+    .mock-banner {
+      background: var(--red-light);
+      color: var(--red-dark);
+      text-align: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border-bottom: 2px solid var(--red);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .priority-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .facts-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tables-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .header-inner {
+        flex-wrap: wrap;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+
+      .main-nav {
+        width: 100%;
+        padding-bottom: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .facts-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mock-banner">Mock homepage — implements recommendations from olympic_recommendations.md</p>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <div class="logo-mark" aria-hidden="true">O</div>
+        <div class="logo-text">
+          <strong>Olympic Harriers</strong>
+          <span>Johnsonville · Wellington</span>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="main-nav">
+          <li><a href="#new-members" class="nav-highlight">New members</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Membership</a></li>
+          <li><a href="#">Calendar</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="new-members" aria-labelledby="hero-heading">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">All paces welcome</span>
+      <h1 id="hero-heading">New to running? New to Olympic?</h1>
+      <p class="hero-lead">
+        We're a friendly Johnsonville club for walkers and runners of all abilities — not just racers.
+        Come try a Saturday pack run: <strong>no signup, no singlet, no pressure.</strong>
+        Recreational membership from <strong>$82/year</strong> when you're ready.
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">New to Olympic? →</a>
+        <a href="#next-run" class="btn btn-secondary">Next club run: Sat 27 June →</a>
+      </div>
+      <div class="hero-pills">
+        <span class="pill">Walkers welcome</span>
+        <span class="pill">Try before you join</span>
+        <span class="pill">Pack runs by pace</span>
+        <span class="pill">Families &amp; juniors</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="priority-section" aria-label="Key information for newcomers">
+    <div class="priority-grid">
+
+      <article class="card card-featured" id="next-run">
+        <p class="card-label">Next club run / walk</p>
+        <h2>Best day for a first visit</h2>
+        <p class="next-run-date">Saturday 27 June 2026</p>
+        <p style="margin:0;color:var(--grey-600);font-size:0.9375rem;">Club Run/Walk — all paces &amp; walkers</p>
+        <div class="next-run-meta">
+          <div class="meta-row">
+            <span class="meta-icon" aria-hidden="true">⏱</span>
+            <span>1:30 pm — arrive 10–15 minutes early</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-icon" aria-hidden="true">📍</span>
+            <span>Waiora Hub, top field, Alex Moore Park, Bannister Avenue, Johnsonville</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-icon" aria-hidden="true">👋</span>
+            <span>Look for <span class="contact-names">Club Captain Rob McCrudden</span> or Deputy <span class="contact-names">Graeme Moss</span></span>
+          </div>
+        </div>
+        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;">View full calendar</a>
+        <p class="card-note">On race weeks we may be at a race venue — check the calendar or contact the captain before travelling.</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">Try before you join</p>
+        <h2>Come along first</h2>
+        <p>No registration or club kit needed for trial visits. We recommend coming to 2–3 Saturday club runs before joining.</p>
+        <p>When you arrive, say: <em>"Hi, I'm new — which pack suits a slow 5 km jog?"</em></p>
+        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;">Joining information →</a>
+      </article>
+
+      <article class="card">
+        <p class="card-label">Just want to run socially?</p>
+        <h2>Recreational membership</h2>
+        <p class="price-tag">$82 <span>/ year (15+)</span></p>
+        <p>All club pack runs, club-only events &amp; Tuesday training. No interclub or Athletics Wellington races — perfect for building fitness with company.</p>
+        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;">Membership &amp; subs →</a>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="facts-bar" aria-label="Club at a glance">
+    <div class="facts-inner">
+      <div class="fact-item">
+        <strong>When</strong>
+        <span>Saturdays Apr–Oct · Tuesday training</span>
+      </div>
+      <div class="fact-item">
+        <strong>Where</strong>
+        <span>Johnsonville · Wellington hills</span>
+      </div>
+      <div class="fact-item">
+        <strong>Who</strong>
+        <span>Walkers, joggers, racers &amp; families</span>
+      </div>
+      <div class="fact-item">
+        <strong>Bring</strong>
+        <span>Layers, grippy shoes &amp; water</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 class="section-heading" id="faq-heading">Common questions</h2>
+    <div class="faq-box">
+      <h3>I'm slow and nervous — will I fit in?</h3>
+      <p><strong>Yes.</strong> Most of us aren't elite athletes — many members join to get fit, meet people, and enjoy a shared walk or jog. We run in <strong>packs by pace</strong>, including walkers and slower joggers, so you won't be left behind.</p>
+      <p>You don't need to register before your first visit. Come to a <strong>Club Run/Walk</strong> Saturday, arrive a few minutes early, and tell the club captain you're new. Our routes can include hills around Johnsonville — wear grippy shoes and a wind layer.</p>
+      <p><a href="#">Contact the club captain</a> if you're unsure which Saturday to pick — we're happy to help.</p>
+    </div>
+  </section>
+
+  <section class="members-section" aria-labelledby="members-heading">
+    <h2 class="section-heading" id="members-heading">For members</h2>
+    <div class="tables-grid">
+
+      <div class="table-card">
+        <div class="table-card-header">
+          Club News
+          <a href="#">More news →</a>
+        </div>
+        <table>
+          <tr><th>29 Mar</th><td><a href="#">Membership forms for 2026/2027</a></td></tr>
+          <tr><th>23 Jul</th><td><a href="#">Club cross country champs results</a></td></tr>
+          <tr><th>2 May</th><td><a href="#">Shaw Baton Relays postponed</a></td></tr>
+          <tr><th>6 Apr</th><td><a href="#">Membership forms for 2025/2026</a></td></tr>
+        </table>
+      </div>
+
+      <div class="table-card">
+        <div class="table-card-header">
+          Event Results
+          <a href="#">More results →</a>
+        </div>
+        <table>
+          <tr><th>13 Jun</th><td><a href="#">Dorne Cup, Trentham Memorial Park</a></td></tr>
+          <tr><th>24 May</th><td><a href="#">Barefoot XTrail – The Woolshed Run</a></td></tr>
+          <tr><th>23 May</th><td><a href="#">Vosseler Shield, Houghton Bay</a></td></tr>
+          <tr><th>17 May</th><td><a href="#">Masters Relay, Trentham Memorial Park</a></td></tr>
+        </table>
+      </div>
+
+      <div class="table-card">
+        <div class="table-card-header">
+          Club Calendar
+          <a href="#">More events →</a>
+        </div>
+        <table>
+          <tr><th>27 Jun</th><td><a href="#next-run"><strong>Club Run/Walk</strong></a></td></tr>
+          <tr><th>28 Jun</th><td><a href="#">Wellington Marathon</a></td></tr>
+          <tr><th>4 Jul</th><td><a href="#">North Island Cross Country Champs</a></td></tr>
+          <tr><th>11 Jul</th><td><a href="#">Club Run/Walk</a></td></tr>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <h4>Clubrooms</h4>
+        <p>Waiora Hub, top field<br>Alex Moore Park, Bannister Avenue<br>Johnsonville, Wellington</p>
+        <p>PO Box 13-271, Johnsonville 6440</p>
+      </div>
+      <div>
+        <h4>Stay in touch</h4>
+        <p>Email newsletter · Facebook · Instagram · X</p>
+        <div class="footer-social">
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Calendar (iCal)</a>
+        </div>
+        <p style="margin-top:1rem;"><a href="#">Contact the club →</a></p>
+      </div>
+    </div>
+    <p class="footer-bottom">Olympic Harrier and Athletic Club Incorporated · Mock design — not affiliated with live site deployment</p>
+  </footer>
+
+</body>
+</html>

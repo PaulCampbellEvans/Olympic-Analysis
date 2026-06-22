@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olympic Harriers — Proposed Navigation (Mock)</title>
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --black-soft: #1a1a1a;
+      --black-muted: #2a2a2a;
+      --red: #c8102e;
+      --red-dark: #9e0c24;
+      --red-light: #fce8ec;
+      --white: #ffffff;
+      --grey-100: #f5f5f5;
+      --grey-200: #e8e8e8;
+      --grey-400: #888;
+      --grey-600: #555;
+      --green-new: #0d6b3a;
+      --green-bg: #e8f5ee;
+      --amber-renamed: #9a6700;
+      --amber-bg: #fef9e7;
+      --blue-merge: #1a5490;
+      --blue-bg: #e8f0fa;
+      --max-width: 1200px;
+      --radius: 8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--black);
+      background: var(--grey-100);
+    }
+
+    a { color: var(--red); }
+
+    .mock-banner {
+      background: var(--red-light);
+      color: var(--red-dark);
+      text-align: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border-bottom: 2px solid var(--red);
+    }
+
+    /* ── Live nav bar mock ── */
+    .site-header {
+      background: var(--black);
+      color: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+      display: flex;
+      align-items: stretch;
+      min-height: 60px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--white);
+      padding: 0.5rem 0;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .logo:hover { text-decoration: none; }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .logo-text strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: 0.65rem;
+      color: var(--grey-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: stretch;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex: 1;
+      gap: 0;
+    }
+
+    .nav-item {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .nav-item > a,
+    .nav-item > button {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0 0.85rem;
+      color: var(--grey-200);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+
+    .nav-item > a:hover,
+    .nav-item > button:hover,
+    .nav-item:focus-within > a,
+    .nav-item:focus-within > button {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.06);
+      text-decoration: none;
+    }
+
+    .nav-item.primary > a {
+      background: var(--red);
+      color: var(--white);
+      border-bottom-color: var(--red);
+      margin: 0.5rem 0.25rem 0.5rem 0;
+      border-radius: 4px;
+      padding: 0 1rem;
+      align-self: center;
+      height: calc(100% - 1rem);
+    }
+
+    .nav-item.primary > a:hover {
+      background: var(--red-dark);
+    }
+
+    .nav-item.has-dropdown > button::after {
+      content: "▾";
+      font-size: 0.65rem;
+      opacity: 0.7;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 240px;
+      background: var(--white);
+      border-radius: 0 0 var(--radius) var(--radius);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      padding: 0.5rem 0;
+      z-index: 300;
+    }
+
+    .nav-item:hover .dropdown,
+    .nav-item:focus-within .dropdown {
+      display: block;
+    }
+
+    .dropdown-section {
+      padding: 0.35rem 0;
+    }
+
+    .dropdown-section + .dropdown-section {
+      border-top: 1px solid var(--grey-200);
+    }
+
+    .dropdown-label {
+      padding: 0.35rem 1rem 0.25rem;
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--grey-400);
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 0.45rem 1rem;
+      color: var(--black);
+      font-size: 0.875rem;
+      text-decoration: none;
+    }
+
+    .dropdown a:hover {
+      background: var(--red-light);
+      color: var(--red-dark);
+      text-decoration: none;
+    }
+
+    .dropdown a .tag {
+      display: inline-block;
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      margin-left: 0.35rem;
+      vertical-align: middle;
+    }
+
+    .tag-new { background: var(--green-bg); color: var(--green-new); }
+    .tag-renamed { background: var(--amber-bg); color: var(--amber-renamed); }
+
+    .dropdown a.featured {
+      font-weight: 600;
+      color: var(--red);
+    }
+
+    /* ── Page content ── */
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--grey-600);
+      margin: 0 0 2rem;
+      max-width: 52rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 3px solid var(--red);
+      display: inline-block;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      background: var(--white);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      font-size: 0.875rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Tree */
+    .tree-panel {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+      overflow-x: auto;
+    }
+
+    .tree {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9375rem;
+    }
+
+    .tree ul {
+      list-style: none;
+      margin: 0;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--grey-200);
+    }
+
+    .tree > li > ul {
+      margin-top: 0.35rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tree li {
+      position: relative;
+      padding: 0.2rem 0 0.2rem 0.5rem;
+    }
+
+    .tree .node {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.5rem;
+    }
+
+    .tree .node-title {
+      font-weight: 500;
+    }
+
+    .tree .node-title.section-root {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .tree .node-title.primary-section {
+      color: var(--red);
+    }
+
+    .tree .path {
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      font-size: 0.75rem;
+      color: var(--grey-400);
+    }
+
+    .badge {
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+    }
+
+    .badge-new { background: var(--green-bg); color: var(--green-new); }
+    .badge-renamed { background: var(--amber-bg); color: var(--amber-renamed); }
+    .badge-merge { background: var(--blue-bg); color: var(--blue-merge); }
+    .badge-remove { background: #fde8e8; color: #9e0c24; text-decoration: line-through; }
+    .badge-keep { background: var(--grey-100); color: var(--grey-600); }
+
+    .tree-note {
+      font-size: 0.8125rem;
+      color: var(--grey-600);
+      font-style: italic;
+      margin-left: 0.25rem;
+    }
+
+    /* Comparison columns */
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .compare-col {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .compare-col h3 {
+      margin: 0 0 0.75rem;
+      font-size: 0.9375rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .compare-col.old h3 { color: var(--grey-600); }
+    .compare-col.new h3 { color: var(--red); }
+
+    .compare-col ul {
+      margin: 0;
+      padding-left: 1.25rem;
+      font-size: 0.875rem;
+    }
+
+    .compare-col li { margin-bottom: 0.35rem; }
+
+    /* Redirect table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    th, td {
+      padding: 0.65rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--grey-200);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--black-muted);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.8125rem;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    td code {
+      font-size: 0.8125rem;
+      background: var(--grey-100);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    .rationale-box {
+      background: var(--white);
+      border-left: 4px solid var(--red);
+      padding: 1rem 1.25rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1rem 0;
+      font-size: 0.9375rem;
+      color: var(--grey-600);
+    }
+
+    @media (max-width: 768px) {
+      .header-inner { flex-wrap: wrap; }
+      .main-nav {
+        flex-wrap: wrap;
+        width: 100%;
+        padding-bottom: 0.5rem;
+      }
+      .compare { grid-template-columns: 1fr; }
+      .nav-item > a, .nav-item > button {
+        padding: 0.5rem 0.65rem;
+        font-size: 0.8125rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="mock-banner">Navigation mock — proposed IA from olympic_recommendations.md · Not live on olympicharriers.nz</p>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INTERACTIVE NAVIGATION BAR (proposed)
+       ═══════════════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <div class="logo-mark" aria-hidden="true">O</div>
+        <div class="logo-text">
+          <strong>Olympic Harriers</strong>
+          <span>Johnsonville</span>
+        </div>
+      </a>
+
+      <ul class="main-nav" role="menubar" aria-label="Main navigation (proposed)">
+
+        <!-- Primary newcomer entry -->
+        <li class="nav-item primary has-dropdown" role="none">
+          <a href="/new-here/" role="menuitem">New here</a>
+          <div class="dropdown" role="menu">
+            <div class="dropdown-section">
+              <div class="dropdown-label">Start</div>
+              <a href="/new-here/" class="featured" role="menuitem">Start here — overview</a>
+              <a href="/new-here/first-visit/" class="featured" role="menuitem">Your first visit <span class="tag tag-renamed">was Joining</span></a>
+              <a href="/new-here/next-run/" role="menuitem">Next club run <span class="tag tag-new">New</span></a>
+            </div>
+            <div class="dropdown-section">
+              <div class="dropdown-label">Before you arrive</div>
+              <a href="/new-here/getting-here/" role="menuitem">Getting to clubrooms <span class="tag tag-new">New</span></a>
+              <a href="/new-here/faq/" role="menuitem">New member FAQs <span class="tag tag-new">New</span></a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown" role="none">
+          <button type="button" role="menuitem" aria-haspopup="true">Training</button>
+          <div class="dropdown" role="menu">
+            <a href="/training/schedule/" role="menuitem">Weekly schedule <span class="tag tag-new">New</span></a>
+            <a href="/training/pack-runs/" role="menuitem">Pack runs &amp; walkers <span class="tag tag-merge">was Activities</span></a>
+            <a href="/training/what-to-bring/" role="menuitem">What to bring <span class="tag tag-new">New</span></a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown" role="none">
+          <button type="button" role="menuitem" aria-haspopup="true">Join</button>
+          <div class="dropdown" role="menu">
+            <a href="/join/fees/" class="featured" role="menuitem">Membership fees <span class="tag tag-renamed">was Subscriptions</span></a>
+            <a href="/join/fees/#recreational" role="menuitem">Recreational — $82/year</a>
+            <a href="/join/register/" role="menuitem">Register online <span class="tag tag-new">New</span></a>
+            <a href="/join/uniform/" role="menuitem">Club uniform <span class="tag tag-renamed">was Uniforms</span></a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown" role="none">
+          <button type="button" role="menuitem" aria-haspopup="true">Events</button>
+          <div class="dropdown" role="menu">
+            <a href="/events/calendar/" role="menuitem">Calendar</a>
+            <a href="/events/races/" role="menuitem">Club &amp; interclub races</a>
+            <a href="/events/results/" role="menuitem">Results</a>
+            <a href="/resources/harriers-syllabus-2026.pdf" role="menuitem">Harriers syllabus (PDF)</a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown" role="none">
+          <button type="button" role="menuitem" aria-haspopup="true">Juniors</button>
+          <div class="dropdown" role="menu">
+            <a href="/juniors/" role="menuitem">Children's athletics</a>
+            <a href="https://www.olympicharriers.nz/juniors/" role="menuitem">Olympic Juniors website ↗</a>
+            <a href="/coaching/juniors/" role="menuitem">Junior coaching</a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown" role="none">
+          <button type="button" role="menuitem" aria-haspopup="true">About</button>
+          <div class="dropdown" role="menu">
+            <a href="/about/" role="menuitem">About the club</a>
+            <a href="/coaching/" role="menuitem">Coaching programmes</a>
+            <a href="/news/" role="menuitem">Club news</a>
+            <a href="/about/governance/" role="menuitem">Governance &amp; annual report</a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown" role="none">
+          <button type="button" role="menuitem" aria-haspopup="true">Contact</button>
+          <div class="dropdown" role="menu">
+            <a href="/contact/who-to-ask/" class="featured" role="menuitem">Who to ask <span class="tag tag-new">New</span></a>
+            <a href="/contact/#captain" role="menuitem">Club captain — Rob McCrudden</a>
+            <a href="/contact/committee/" role="menuitem">Committee &amp; officials</a>
+            <a href="/contact/" role="menuitem">Send a message</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <h1>Proposed site navigation</h1>
+    <p class="subtitle">
+      A newcomer-first information architecture for Olympic Harriers, implementing recommendations
+      M1–M4, Q1–Q3, and L3 from <em>olympic_recommendations.md</em>. Hover the navigation bar above to
+      explore dropdowns. The tree below is the full proposed sitemap.
+    </p>
+
+    <div class="legend" aria-label="Change types">
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--green-bg);border:1px solid var(--green-new)"></span> New page or section</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--amber-bg);border:1px solid var(--amber-renamed)"></span> Renamed (clearer label or URL)</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--blue-bg);border:1px solid var(--blue-merge)"></span> Consolidated / merged content</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#fde8e8;border:1px solid #9e0c24"></span> Retired — redirect elsewhere</div>
+    </div>
+
+    <div class="rationale-box">
+      <strong>Design principle:</strong> The live site hides joining under <code>Membership → Joining</code> and spreads
+      schedule, fees, and contacts across four sections. The proposed tree puts every pre-visit answer under
+      <strong>New here</strong> (first nav item, red button), then separates <strong>Join</strong> (money &amp; registration)
+      from <strong>Training</strong> (when &amp; how we run). <strong>Events</strong> serves racers without dominating the homepage.
+    </div>
+
+    <h2>Navigation tree (proposed sitemap)</h2>
+
+    <div class="tree-panel">
+      <ul class="tree">
+        <li>
+          <span class="node">
+            <span class="node-title section-root">Home</span>
+            <span class="path">/</span>
+            <span class="badge badge-keep">Keep</span>
+          </span>
+          <span class="tree-note">— Reordered content (see olympic_mock_home.html); newcomer hero above member tables</span>
+
+          <ul>
+            <!-- NEW HERE -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root primary-section">New here</span>
+                <span class="path">/new-here/</span>
+                <span class="badge badge-new">New section</span>
+              </span>
+              <span class="tree-note">— Implements M1; first nav item; answers “can I try? when? where? who?”</span>
+              <ul>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Start here — overview</span>
+                    <span class="path">/new-here/</span>
+                    <span class="badge badge-new">New</span>
+                    <span class="badge badge-merge">Merges Why Olympic?</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Your first visit</span>
+                    <span class="path">/new-here/first-visit/</span>
+                    <span class="badge badge-renamed">Renamed</span>
+                    <span class="badge badge-merge">Was /membership/joining/</span>
+                  </span>
+                  <span class="tree-note">— Try 2–3 Saturdays; no kit; script for captain; Q3 names added</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Next club run</span>
+                    <span class="path">/new-here/next-run/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                  <span class="tree-note">— Weekly-updated pin (Q2); or homepage widget linking here</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Getting to clubrooms</span>
+                    <span class="path">/new-here/getting-here/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                  <span class="tree-note">— Map, parking, Waiora Hub directions (L3)</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">New member FAQs</span>
+                    <span class="path">/new-here/faq/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                  <span class="tree-note">— “I'm slow and nervous”; race week vs club-run week (M4)</span>
+                </li>
+              </ul>
+            </li>
+
+            <!-- TRAINING -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root">Training &amp; runs</span>
+                <span class="path">/training/</span>
+                <span class="badge badge-new">New section</span>
+              </span>
+              <span class="tree-note">— Replaces stale Activities page (M2); schedule visible without joining</span>
+              <ul>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Weekly schedule</span>
+                    <span class="path">/training/schedule/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                  <span class="tree-note">— Sat ~1:30 pm pack runs; Tue adult session (M3, coach to confirm)</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Pack runs &amp; walking groups</span>
+                    <span class="path">/training/pack-runs/</span>
+                    <span class="badge badge-merge">Consolidated</span>
+                  </span>
+                  <span class="tree-note">— From About §“What we do” + /membership/activities/ (2015)</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">What to bring</span>
+                    <span class="path">/training/what-to-bring/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                  <span class="tree-note">— Layers, grippy shoes, hills note from About</span>
+                </li>
+              </ul>
+            </li>
+
+            <!-- JOIN -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root">Join</span>
+                <span class="path">/join/</span>
+                <span class="badge badge-renamed">Renamed</span>
+              </span>
+              <span class="tree-note">— Was “Membership”; plain language for newcomers (Q5)</span>
+              <ul>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Membership fees</span>
+                    <span class="path">/join/fees/</span>
+                    <span class="badge badge-renamed">Renamed</span>
+                    <span class="badge badge-merge">Was /membership/subscriptions/</span>
+                  </span>
+                  <span class="tree-note">— Recreational $82 lead section at top (Q5)</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Register online</span>
+                    <span class="path">/join/register/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                  <span class="tree-note">— Hub for 12-month / winter / quarterly GameDay forms</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Club uniform</span>
+                    <span class="path">/join/uniform/</span>
+                    <span class="badge badge-renamed">Renamed</span>
+                    <span class="badge badge-merge">Was /membership/uniforms/</span>
+                  </span>
+                  <span class="tree-note">— Note: not required for trial visits</span>
+                </li>
+              </ul>
+            </li>
+
+            <!-- COACHING -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root">Coaching</span>
+                <span class="path">/coaching/</span>
+                <span class="badge badge-renamed">Moved</span>
+              </span>
+              <span class="tree-note">— Out of Membership submenu; linked from About &amp; Juniors</span>
+              <ul>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Adult &amp; Tuesday training</span>
+                    <span class="path">/coaching/adults/</span>
+                    <span class="badge badge-merge">Was /membership/coaching/</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Junior &amp; youth coaching</span>
+                    <span class="path">/coaching/juniors/</span>
+                    <span class="badge badge-keep">Keep</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Summer programme</span>
+                    <span class="path">/coaching/summer/</span>
+                    <span class="badge badge-keep">Keep</span>
+                  </span>
+                </li>
+              </ul>
+            </li>
+
+            <!-- EVENTS -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root">Events</span>
+                <span class="path">/events/</span>
+                <span class="badge badge-new">New hub</span>
+              </span>
+              <span class="tree-note">— Groups calendar + results for members &amp; racers; off newcomer path</span>
+              <ul>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Calendar</span>
+                    <span class="path">/events/calendar/</span>
+                    <span class="badge badge-renamed">Moved</span>
+                    <span class="badge badge-merge">Was /listcalendar/</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Club &amp; interclub races</span>
+                    <span class="path">/events/races/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                  <span class="tree-note">— Links to harriers syllabus PDF; explains race vs club-run weeks</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Results</span>
+                    <span class="path">/events/results/</span>
+                    <span class="badge badge-renamed">Grouped</span>
+                  </span>
+                </li>
+              </ul>
+            </li>
+
+            <!-- JUNIORS -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root">Juniors &amp; families</span>
+                <span class="path">/juniors/</span>
+                <span class="badge badge-new">New top-level</span>
+              </span>
+              <span class="tree-note">— Family focus is a club strength; separate from adult newcomer path</span>
+              <ul>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Children's athletics overview</span>
+                    <span class="path">/juniors/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Olympic Juniors website</span>
+                    <span class="path">external</span>
+                    <span class="badge badge-keep">Keep</span>
+                  </span>
+                </li>
+              </ul>
+            </li>
+
+            <!-- ABOUT -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root">About</span>
+                <span class="path">/about/</span>
+                <span class="badge badge-keep">Slimmed</span>
+              </span>
+              <ul>
+                <li>
+                  <span class="node">
+                    <span class="node-title">About Olympic Harriers</span>
+                    <span class="path">/about/</span>
+                    <span class="badge badge-keep">Keep</span>
+                  </span>
+                  <span class="tree-note">— History, NI XC tradition; “What we do” moved to Training</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Governance &amp; annual report</span>
+                    <span class="path">/about/governance/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                </li>
+              </ul>
+            </li>
+
+            <!-- NEWS -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root">News</span>
+                <span class="path">/news/</span>
+                <span class="badge badge-keep">Keep</span>
+              </span>
+              <span class="tree-note">— Also linked under About dropdown; not on homepage hero</span>
+            </li>
+
+            <!-- CONTACT -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root">Contact</span>
+                <span class="path">/contact/</span>
+                <span class="badge badge-renamed">Restructured</span>
+              </span>
+              <ul>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Who to ask</span>
+                    <span class="path">/contact/who-to-ask/</span>
+                    <span class="badge badge-new">New</span>
+                  </span>
+                  <span class="tree-note">— Captain first for newcomers; registrar for joining (Q3, Q4)</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Committee &amp; officials</span>
+                    <span class="path">/contact/committee/</span>
+                    <span class="badge badge-renamed">Renamed</span>
+                  </span>
+                  <span class="tree-note">— Was “Key club contacts 2023/24” (Q4 → 2026/27)</span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Send a message</span>
+                    <span class="path">/contact/</span>
+                    <span class="badge badge-keep">Keep</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Website &amp; social media</span>
+                    <span class="path">/contact/website/</span>
+                    <span class="badge badge-keep">Keep</span>
+                  </span>
+                </li>
+              </ul>
+            </li>
+
+            <!-- RETIRED -->
+            <li>
+              <span class="node">
+                <span class="node-title section-root" style="opacity:0.6">Retired pages</span>
+              </span>
+              <ul>
+                <li>
+                  <span class="node">
+                    <span class="node-title">/membership/</span>
+                    <span class="badge badge-remove">Retired</span>
+                    <span class="badge badge-merge">→ /join/ + /new-here/</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">/membership/activities/</span>
+                    <span class="badge badge-remove">Retired</span>
+                    <span class="badge badge-merge">→ /training/pack-runs/ (M2)</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="node">
+                    <span class="node-title">Why Olympic?</span>
+                    <span class="badge badge-remove">Retired</span>
+                    <span class="badge badge-merge">→ /new-here/</span>
+                  </span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <h2>Before &amp; after (top-level nav)</h2>
+    <div class="compare">
+      <div class="compare-col old">
+        <h3>Current (inferred from live site)</h3>
+        <ul>
+          <li>Home — news, results, calendar tables</li>
+          <li>About us</li>
+          <li>Membership
+            <ul>
+              <li>Why Olympic?</li>
+              <li>Joining <em>(buried trial info)</em></li>
+              <li>Subscriptions</li>
+              <li>Uniforms</li>
+              <li>Coaching (+ Summer)</li>
+              <li>Activities <em>(stale, 2015)</em></li>
+            </ul>
+          </li>
+          <li>Calendar / News / Results <em>(homepage prominence)</em></li>
+          <li>Contact <em>(registrar-first)</em></li>
+          <li>Olympic Juniors <em>(footer link only)</em></li>
+        </ul>
+      </div>
+      <div class="compare-col new">
+        <h3>Proposed (newcomer-first)</h3>
+        <ul>
+          <li><strong>New here</strong> ★ — start, first visit, next run, map, FAQ</li>
+          <li>Training — schedule, packs, what to bring</li>
+          <li>Join — fees ($82 first), register, uniform</li>
+          <li>Events — calendar, races, results</li>
+          <li>Juniors — families &amp; children's athletics</li>
+          <li>About — club story, coaching link, news, governance</li>
+          <li>Contact — who to ask, committee, form</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>URL redirects (for webmaster)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Old URL</th>
+          <th>New URL</th>
+          <th>Recommendation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>/membership/joining/</code></td>
+          <td><code>/new-here/first-visit/</code></td>
+          <td>M1 — promote trial-run guidance</td>
+        </tr>
+        <tr>
+          <td><code>/membership/subscriptions/</code></td>
+          <td><code>/join/fees/</code></td>
+          <td>Q5 — recreational tier leads page</td>
+        </tr>
+        <tr>
+          <td><code>/membership/activities/</code></td>
+          <td><code>/training/pack-runs/</code></td>
+          <td>M2 — retire stale page</td>
+        </tr>
+        <tr>
+          <td><code>/membership/uniforms/</code></td>
+          <td><code>/join/uniform/</code></td>
+          <td>Clearer path; note trial visits</td>
+        </tr>
+        <tr>
+          <td><code>/membership/coaching/</code></td>
+          <td><code>/coaching/adults/</code></td>
+          <td>Moved out of membership</td>
+        </tr>
+        <tr>
+          <td><code>/membership/</code></td>
+          <td><code>/join/</code></td>
+          <td>Hub split: try → New here; pay → Join</td>
+        </tr>
+        <tr>
+          <td><code>/listcalendar/</code></td>
+          <td><code>/events/calendar/</code></td>
+          <td>Grouped under Events</td>
+        </tr>
+        <tr>
+          <td><code>/about/</code> (#what-we-do)</td>
+          <td><code>/training/pack-runs/</code></td>
+          <td>Operational info → Training</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>New-member journey (nav path)</h2>
+    <div class="rationale-box">
+      <ol style="margin:0.5rem 0 0;padding-left:1.25rem">
+        <li><strong>Land on Home</strong> → hero + next run (Q1, Q2)</li>
+        <li><strong>New here → Your first visit</strong> → try before join, captain names (Q3, M1)</li>
+        <li><strong>Training → Weekly schedule</strong> → Sat/Tue times (M3)</li>
+        <li><strong>New here → FAQ</strong> → race weeks, nervous beginner (M4)</li>
+        <li><strong>Join → Membership fees</strong> → recreational $82 when ready (Q5)</li>
+        <li><strong>Contact → Who to ask</strong> → captain vs registrar (Q3, Q4)</li>
+      </ol>
+    </div>
+
+  </main>
+
+</body>
+</html>
