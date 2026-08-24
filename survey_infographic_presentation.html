@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OHAC Member Survey Summary</title>
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --red: #c8102e;
+      --red-dark: #9e0c24;
+      --white: #ffffff;
+      --light: #f5f5f5;
+      --mid: #7b7b7b;
+      --line: #e7e7e7;
+      --shadow: 0 10px 28px rgba(13, 13, 13, 0.06);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(180deg, #fafafa 0%, #f2f2f2 100%);
+      color: var(--black);
+    }
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 12px;
+      padding: 22px 26px;
+      box-shadow: var(--shadow);
+    }
+    .header h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .chip {
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0 22px;
+      color: var(--mid);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+    .card.red {
+      background: linear-gradient(180deg, #fff8f9 0%, #ffffff 100%);
+    }
+    .span-3 { grid-column: span 3; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-9 { grid-column: span 9; }
+    .span-12 { grid-column: span 12; }
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      font-weight: 700;
+    }
+    .metric {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--red);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      margin: 0 0 8px;
+    }
+    .subtext {
+      font-size: 12px;
+      color: var(--mid);
+      margin: 0;
+    }
+    .rating-bars {
+      display: flex;
+      align-items: end;
+      gap: 10px;
+      height: 150px;
+      margin-top: 14px;
+    }
+    .rating-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: end;
+      gap: 8px;
+    }
+    .rating-bar {
+      width: 100%;
+      min-height: 14px;
+      background: linear-gradient(180deg, var(--red) 0%, var(--red-dark) 100%);
+      border-radius: 8px 8px 0 0;
+    }
+    .rating-col strong {
+      font-size: 11px;
+      color: var(--mid);
+    }
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+    }
+    .list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .donut {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: conic-gradient(var(--red) 0 42%, var(--black) 42% 66%, var(--mid) 66% 100%);
+    }
+    .donut::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      background: var(--white);
+      border-radius: 50%;
+    }
+    .donut-label {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 24px;
+    }
+    .bars { margin-top: 10px; }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 1.45fr 3fr auto;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .bar-label {
+      font-size: 12px;
+      color: var(--black);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bar-track {
+      background: var(--light);
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--red) 0%, var(--red-dark) 100%);
+      border-radius: 999px;
+    }
+    .bar-value {
+      font-size: 11px;
+      color: var(--black);
+      min-width: 30px;
+      text-align: right;
+    }
+    .foot {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--mid);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    @media (max-width: 760px) {
+      .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-12 { grid-column: span 12; }
+      .header { flex-direction: column; align-items: flex-start; }
+      .page { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="chip">Survey summary — draft for committee review</div>
+        <h1>OHAC Member Survey</h1>
+      </div>
+      <div class="chip">n = 37</div>
+    </div>
+
+    <div class="meta">
+      <span>Responses: 2026-08-09 to 2026-08-15</span>
+      <span>Membership sample: 37</span>
+      <span>Question-specific totals shown where relevant</span>
+    </div>
+
+    <div class="summary-grid">
+      <section class="card span-3 red">
+        <p class="eyebrow">Experience</p>
+        <div class="metric">3.78</div>
+        <p class="subtext">Average score out of 5</p>
+        <div class="rating-bars">
+          <div class="rating-col"><div class="rating-bar" style="height:18px;"></div><strong>1</strong></div>
+          <div class="rating-col"><div class="rating-bar" style="height:18px;"></div><strong>2</strong></div>
+          <div class="rating-col"><div class="rating-bar" style="height:128px;"></div><strong>3</strong></div>
+          <div class="rating-col"><div class="rating-bar" style="height:148px;"></div><strong>4</strong></div>
+          <div class="rating-col"><div class="rating-bar" style="height:72px;"></div><strong>5</strong></div>
+        </div>
+      </section>
+
+      <section class="card span-3">
+        <p class="eyebrow">Membership</p>
+        <div class="donut-wrap">
+          <div class="donut"><div class="donut-label">37</div></div>
+        </div>
+        <ul class="list">
+          <li><span>Full competitive</span><strong>21</strong></li>
+          <li><span>Social</span><strong>7</strong></li>
+          <li><span>Parent/supporter</span><strong>4</strong></li>
+          <li><span>Life</span><strong>3</strong></li>
+        </ul>
+      </section>
+
+      <section class="card span-3">
+        <p class="eyebrow">Top attractions</p>
+        <div class="bars">
+          <div class="bar-row"><div class="bar-label">Location/convenience</div><div class="bar-track"><span class="bar-fill" style="width:100%"></span></div><div class="bar-value">22</div></div>
+          <div class="bar-row"><div class="bar-label">Friend/family member</div><div class="bar-track"><span class="bar-fill" style="width:91%"></span></div><div class="bar-value">20</div></div>
+          <div class="bar-row"><div class="bar-label">Competitive running</div><div class="bar-track"><span class="bar-fill" style="width:77%"></span></div><div class="bar-value">17</div></div>
+          <div class="bar-row"><div class="bar-label">Coaching/training</div><div class="bar-track"><span class="bar-fill" style="width:68%"></span></div><div class="bar-value">15</div></div>
+        </div>
+      </section>
+
+      <section class="card span-3">
+        <p class="eyebrow">What keeps people in</p>
+        <div class="bars">
+          <div class="bar-row"><div class="bar-label">Training with others</div><div class="bar-track"><span class="bar-fill" style="width:100%"></span></div><div class="bar-value">23</div></div>
+          <div class="bar-row"><div class="bar-label">Racing</div><div class="bar-track"><span class="bar-fill" style="width:78%"></span></div><div class="bar-value">18</div></div>
+          <div class="bar-row"><div class="bar-label">Events / facilities</div><div class="bar-track"><span class="bar-fill" style="width:74%"></span></div><div class="bar-value">17</div></div>
+          <div class="bar-row"><div class="bar-label">Club loyalty/Coaching</div><div class="bar-track"><span class="bar-fill" style="width:70%"></span></div><div class="bar-value">16</div></div>
+        </div>
+      </section>
+
+      <section class="card span-6">
+        <p class="eyebrow">Main barriers</p>
+        <div class="bars">
+          <div class="bar-row"><div class="bar-label">Family commitments</div><div class="bar-track"><span class="bar-fill" style="width:100%"></span></div><div class="bar-value">16</div></div>
+          <div class="bar-row"><div class="bar-label">Injury / fitness</div><div class="bar-track"><span class="bar-fill" style="width:50%"></span></div><div class="bar-value">8</div></div>
+          <div class="bar-row"><div class="bar-label">Timing</div><div class="bar-track"><span class="bar-fill" style="width:44%"></span></div><div class="bar-value">7</div></div>
+          <div class="bar-row"><div class="bar-label">Activity mismatch</div><div class="bar-track"><span class="bar-fill" style="width:44%"></span></div><div class="bar-value">7</div></div>
+          <div class="bar-row"><div class="bar-label">Work commitments</div><div class="bar-track"><span class="bar-fill" style="width:38%"></span></div><div class="bar-value">6</div></div>
+        </div>
+      </section>
+
+      <section class="card span-6">
+        <p class="eyebrow">Information gaps</p>
+        <div class="bars">
+          <div class="bar-row"><div class="bar-label">Who to contact</div><div class="bar-track"><span class="bar-fill" style="width:100%"></span></div><div class="bar-value">17</div></div>
+          <div class="bar-row"><div class="bar-label">What club offers</div><div class="bar-track"><span class="bar-fill" style="width:88%"></span></div><div class="bar-value">15</div></div>
+          <div class="bar-row"><div class="bar-label">Upcoming runs</div><div class="bar-track"><span class="bar-fill" style="width:82%"></span></div><div class="bar-value">14</div></div>
+          <div class="bar-row"><div class="bar-label">Training sessions</div><div class="bar-track"><span class="bar-fill" style="width:76%"></span></div><div class="bar-value">13</div></div>
+          <div class="bar-row"><div class="bar-label">Coaching options</div><div class="bar-track"><span class="bar-fill" style="width:53%"></span></div><div class="bar-value">9</div></div>
+        </div>
+      </section>
+
+      <section class="card span-6">
+        <p class="eyebrow">Preferred run times</p>
+        <div class="bars">
+          <div class="bar-row"><div class="bar-label">Weekday evening</div><div class="bar-track"><span class="bar-fill" style="width:100%"></span></div><div class="bar-value">21</div></div>
+          <div class="bar-row"><div class="bar-label">Sunday morning</div><div class="bar-track"><span class="bar-fill" style="width:81%"></span></div><div class="bar-value">17</div></div>
+          <div class="bar-row"><div class="bar-label">Saturday afternoon</div><div class="bar-track"><span class="bar-fill" style="width:52%"></span></div><div class="bar-value">11</div></div>
+          <div class="bar-row"><div class="bar-label">Weekday early morning</div><div class="bar-track"><span class="bar-fill" style="width:38%"></span></div><div class="bar-value">8</div></div>
+        </div>
+      </section>
+
+      <section class="card span-6">
+        <p class="eyebrow">Useful communication channels</p>
+        <div class="bars">
+          <div class="bar-row"><div class="bar-label">Private Facebook</div><div class="bar-track"><span class="bar-fill" style="width:100%"></span></div><div class="bar-value">15</div></div>
+          <div class="bar-row"><div class="bar-label">Club calendar</div><div class="bar-track"><span class="bar-fill" style="width:73%"></span></div><div class="bar-value">11</div></div>
+          <div class="bar-row"><div class="bar-label">Facebook page</div><div class="bar-track"><span class="bar-fill" style="width:60%"></span></div><div class="bar-value">9</div></div>
+          <div class="bar-row"><div class="bar-label">Word of mouth</div><div class="bar-track"><span class="bar-fill" style="width:53%"></span></div><div class="bar-value">8</div></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="foot">
+      Methodology: percentages shown are based on respondents who answered each question, not all members. Free-text comments were coded for themes and used as qualitative context rather than exact counts.
+    </div>
+  </div>
+</body>
+</html>
