@@ -1,0 +1,253 @@
+:root {
+  --ohc-red: #8b1e2d;
+  --ohc-red-dark: #64121f;
+  --ohc-ink: #17202a;
+  --ohc-text: #263238;
+  --ohc-muted: #66727a;
+  --ohc-surface: #ffffff;
+  --ohc-soft: #f3f6f7;
+  --ohc-border: #d9e1e5;
+  --ohc-shadow: 0 10px 28px rgba(23, 32, 42, 0.10);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.w3-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  background: #eef2f3;
+  color: var(--ohc-text);
+  font: 16px/1.7 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body > .w3-container.w3-black {
+  background: var(--ohc-ink) !important;
+  padding: 1rem 1.5rem;
+}
+
+body > .w3-container.w3-black .w3-row {
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+}
+
+body > .w3-container.w3-black img {
+  max-width: 100%;
+  height: auto;
+}
+
+#topMenu,
+#dropDownMenu {
+  background: var(--ohc-ink) !important;
+}
+
+#topMenu {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+#topMenu .w3-button,
+#dropDownMenu .w3-button,
+#topMenu a,
+#dropDownMenu a {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#topMenu .w3-button:hover,
+#topMenu a:hover,
+#dropDownMenu .w3-button:hover,
+#dropDownMenu a:hover {
+  background: var(--ohc-red) !important;
+  color: #fff !important;
+}
+
+.oly-dkred {
+  height: 0.35rem;
+  padding: 0 !important;
+  background: var(--ohc-red) !important;
+}
+
+body > .w3-panel.w3-small {
+  max-width: 1120px;
+  margin: 1.5rem auto 0;
+  padding: 0 1.25rem;
+  color: var(--ohc-muted);
+}
+
+body > .w3-panel.w3-small a,
+article a {
+  color: var(--ohc-red);
+  font-weight: 600;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+body > .w3-panel.w3-small a:hover,
+article a:hover {
+  color: var(--ohc-red-dark);
+}
+
+article.oly-border-dkred {
+  max-width: 1120px;
+  margin: 0 auto 3rem;
+  padding: clamp(1.25rem, 3vw, 3rem) !important;
+  background: var(--ohc-surface) !important;
+  border: 0 !important;
+  border-top: 5px solid var(--ohc-red) !important;
+  border-radius: 0.75rem;
+  box-shadow: var(--ohc-shadow);
+}
+
+article h1,
+article h2 {
+  color: var(--ohc-ink);
+  line-height: 1.2;
+}
+
+article h1:first-of-type {
+  margin-top: 0;
+  color: var(--ohc-red);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+article h2 {
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--ohc-border);
+  font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+}
+
+article h2 strong,
+article > p > strong,
+article > p > strong a {
+  color: var(--ohc-red) !important;
+}
+
+article p {
+  max-width: 78ch;
+}
+
+article img:not(.icon16x16) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+article > p img {
+  display: block;
+  margin: 1.5rem auto !important;
+  box-shadow: var(--ohc-shadow);
+}
+
+.w3-table {
+  width: 100%;
+  margin: 1rem 0 2.5rem;
+  overflow: hidden;
+  border: 1px solid var(--ohc-border);
+  border-radius: 0.6rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--ohc-surface);
+}
+
+.w3-table th,
+.w3-table td {
+  padding: 0.85rem 1rem !important;
+  border-bottom: 1px solid var(--ohc-border);
+  vertical-align: top;
+}
+
+.w3-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.w3-table .oly-header th,
+.w3-table .oly-header td {
+  background: var(--ohc-red) !important;
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+}
+
+.w3-table .oly-header a,
+.w3-table .oly-header a:visited {
+  color: #fff !important;
+}
+
+.w3-table .oly-odd td {
+  background: #fff;
+}
+
+.w3-table .oly-even td {
+  background: var(--ohc-soft);
+}
+
+.w3-table tr:not(.oly-header):hover td {
+  background: #fbecef;
+}
+
+.w3-table td:first-child {
+  width: 24%;
+  font-weight: 600;
+}
+
+.w3-table td p:last-child {
+  margin-bottom: 0;
+}
+
+.updated {
+  margin-top: 2rem;
+  color: var(--ohc-muted);
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+@media (max-width: 700px) {
+  body.w3-content {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  body > .w3-container.w3-black {
+    padding: 0.75rem;
+  }
+
+  body > .w3-container.w3-black .w3-row {
+    display: block;
+  }
+
+  body > .w3-container.w3-black .w3-quarter {
+    width: 100%;
+  }
+
+  #topMenu {
+    justify-content: flex-start;
+  }
+
+  article.oly-border-dkred {
+    margin: 0 0 2rem;
+    border-radius: 0;
+  }
+
+  .w3-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .w3-table td:first-child {
+    width: auto;
+    min-width: 7rem;
+  }
+}

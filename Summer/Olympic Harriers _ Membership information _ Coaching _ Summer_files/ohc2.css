@@ -1,0 +1,92 @@
+/* p {display:block;padding: 0 0 1em 0; : margin:0;} */ /* add a bit of space after each paragraph */
+
+
+/* Olympic colours */
+.oly-dkred,.oly-hover-dkred:hover{color:#fff!important;background-color:#800000!important}
+.oly-text-dkred,.oly-hover-text-dkred:hover{color:#800000!important}
+.oly-border-dkred,.oly-hover-border-dkred:hover{border-color:#800000!important}
+
+/* our headings */
+
+/* for top level headings that aren't at the top of the page */
+/* Note: the paddings and fonts here are overridden by w3.css */
+h1 {  font-size: 16pt; font-weight: bold; color: #800000; text-align: center; margin: .5em 0px .5em 0px; }
+h1.continue{margin: 1.5em 0 .5em 0; text-align:left;}
+h2 {text-align:left;margin: 1.5em 0px .5em 0px;font-size: 12pt;color: #800000;}
+/* for top level headings that aren't at the top of the page */
+h2.continue{margin: 2.5em 0 .5em 0}
+h2.fancy {margin: 2.5em 0 .5em 0; padding: 10px 0 10px 0;border-top: 2px solid #990000;}
+/* resultdate: used to format the date on the results page (centred)*/
+h2.resultdate {margin: 0.5em 0px 1.5em 0px;text-align: center;}
+h3 { text-align: left; }
+/* resultdivision is used on the results page  */
+h3, .resultdivision {font-size: 11pt;font-weight: bold;color: #000000;margin: 1.5em 0px .5em 0px;}
+h4 { text-align: left; color: #800000;}
+
+
+
+
+/* custom styles */
+.updated {font-size: 10pt; font-style: italic; color: #800000}
+.em {color: #800000; font-weight: bold;} /* emphasised text */
+.oly-italic {font-style: italic;} /* emphasised text (but not as much as .em) */
+.oly-centred {text-align: center;} /* used to format text that isn't full paragraphs */
+/* Options: used to format hyperlinks that represent different viewing options (etc) */
+.options {text-align: center; font-size: 10pt;} /* this generally isn't used - except in static text (where hyperlinks are used instead of buttons) */
+/*.oly-text-warning{color:#fff}*/
+.oly-compulsory{color:red}
+/* img.icon16x16, img.pdf-icon {margin-top:0px;margin-right:3px;position:relative; top:4px } /* this position is a function of text size and image size (i.e. if you change neighbouring text size you will probably need to change this position) */
+img.icon16x16, img.pdf-icon {position:relative;} /* this position is a function of text size and image size (i.e. if you change neighbouring text size you will probably need to change this position) */
+a{text-decoration: none;} /* no underlined hyperlinks anywhere */
+.spacing {height:50px;} /* empty div for spacing used between article cards */
+
+.display-block a:link{color:#0000C0;} /* used for content blocks */
+.display-block a:visited{color:#000060;} /* used for content blocks */
+.display-block a:hover{color:#800000; text-decoration:underline} /* used for content blocks */
+article table a:link{color:#000000;} /* article hyperlinks in a table are black (but not results tables - overridden below) */
+article table a:visited{color:#000000;} /*  */
+article table a:hover{color:#800000; text-decoration:none;} /* article links in a table are red when hovering  */
+article a:link{color:#0000C0;}  /* article hyperlinks are blue */
+article a:visited{color:#000060;} /* used for content blocks */
+article a:hover{color:#800000;text-decoration:underline;} /* article hyperlinks are red when hovering */
+.nav-bar a:link{color:#000000;} /* links in the nav bar are black  */
+.oly-dkred a:link{color:#ffffff;} /* links in something dark red (e.g. buttons) are white  */
+.oly-dkred a:hover{color:#000; text-decoration:none;} /* links in something dark red (e.g. buttons) are white  */
+
+
+
+/* data table styles */
+tr.oly-relayheader {text-align:left; color: #800000; font-weight:bold; font-size: 11pt; height:30pt; 	vertical-align:bottom;}
+tr.oly-odd {background-color: white; text-align:left; color:black; border: thin solid #d8d8d8;} /* black on white */
+/*table.data tr.odd td {border-bottom: thin solid #d8d8d8;}*/ /* for explorer which doesn't render tr borders */
+tr.oly-even   {background-color: #d8d8d8;text-align:left;color:black; }  /* black on grey */ 
+tr.oly-header {background-color: #800000;font-weight:bold;text-align:left;color:white;}   
+tr.oly-header a:link{color:white;} /* results hyperlinks in a table are white  */
+tr.oly-header a:visited{color:white;} /* results hyperlinks that have been visited are white  */
+/* table.data td { padding: 4px 2px 4px 2px;} */
+/*table.oly-data .oly-unpublished  {color:gray;} /* black on grey */
+.resultdivision { text-align: center;} /* same as H3 but centred */
+
+/* 'read more' box with hidden content/* this is the 'read more' box where the text is truncated if it is too long. Use in conjunction with the .read-more-button button.  */
+.read-more-box {
+  max-height:250px;
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* this is the 'read more' button at the bottom of a .read-more-box div. Adds a transparent gradient. */
+.read-more-box .read-more-button { 
+  position: absolute; 
+  bottom: 0; 
+  left: 0;
+  width: 100%; 
+  text-align: center; 
+  margin: 0; padding: 50px 0 25px 0;
+  background-image: linear-gradient(to bottom, transparent, #ffffff); 
+}
+
+
+
+
+
